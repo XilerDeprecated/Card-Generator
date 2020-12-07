@@ -3,6 +3,8 @@ const app = express();
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
 
+const PORT = system.env.PORT || 25578;
+
 app.get(`/mee6`, async function (req, res) {
   try {
     const data = fs.readFileSync("./pages/7KHL0rQmgfNO3neM5MgWuJGYPXYtWZf21DzABROzD2MBBqHaD0HUPDSXa8rcqOZx.hbs", "utf8");
@@ -55,4 +57,4 @@ app.get(`/mee6`, async function (req, res) {
   }
 });
 
-app.listen(8080, () => console.log("Ready freddy!"));
+app.listen(PORT, () => console.log("Ready freddy!"));
