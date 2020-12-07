@@ -3,7 +3,7 @@ const app = express();
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
 
-const PORT = process.env.PORT || 25578;
+const PORT = 25578;
 
 app.get(`/mee6`, async function (req, res) {
   try {
