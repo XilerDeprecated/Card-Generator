@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mee6 image</title>
+    <style>
+      .body {
+        width: 810px;
+        height: 282px;
+      }
+
+      body {
+        background-color: transparent;
+        background-color: #36393F;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 25px;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .light-font {
+        font-weight: 100;
+      }
+
+      .thicc-font {
+        font-weight: 400;
+      }
+
+      .card {
+        border-radius: 6px;
+        background-color: #23272a;
+        width: 854px;
+        padding: 0 40px;
+        height: 282px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        align-items: center;
+      }
+
+      .avatar {
+        position: relative;
+        width: fit-content;
+      }
+
+      .avatar img {
+        width: 160px;
+        height: 160px;
+        border: 4px solid black;
+        border-radius: 50%;
+      }
+
+      .avatar .status {
+        position: absolute;
+        top: 67%;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        border: 4px solid black;
+        border-radius: 50%;
+        background-color: #{{status}};
+      }
+
+      .user-wrapper {
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        align-items: center;
+      }
+
+      .inner-user-wrapper {
+        height: 100%;
+      }
+
+      .inner-user-server-stats-wrapper {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .user-content,
+      .progress-info,
+      .user {
+        display: flex;
+      }
+
+      .user-content {
+        margin: 0 8px;
+        justify-content: space-between;
+      }
+
+      .user-content p {
+        padding: 0;
+        margin: 0 0 10px 10px;
+      }
+
+      .color {
+        color: #{{color}};
+      }
+
+      .color-back {
+        background-color: #{{color}};
+      }
+
+      .lighter {
+        color: #7F8384;
+      }
+
+      .lighter-back {
+        background-color: #484b4e;
+      }
+
+      .bigger {
+        font-size: 250%;
+      }
+
+      .progress-bar {
+        height: 37px;
+        border: 2px solid black;
+      }
+
+      .progress,
+      .progress-bar {
+        border-radius: 19px;
+      }
+
+      .username {
+        font-size: 175%;
+        line-height: 16px;
+      }
+
+      .level-wrapper {
+        margin-right: 8px;
+        margin-left: 8px;
+      }
+
+      .progress {
+        height: 100%;
+        width: {{progress}}%;
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="card">
+      <div class="avatar">
+        <img src="{{avatar}}" alt="The user icon" />
+        <div class="status"></div>
+      </div>
+      <div class="user-wrapper">
+        <div class="inner-user-server-stats-wrapper">
+          <p class="rank-wrapper light-font">
+            RANK <span class="bigger thicc-font">#{{rank}}</span>
+          </p>
+          <p class="level-wrapper color light-font">
+            LEVEL <span class="bigger thicc-font">{{level}}</span>
+          </p>
+        </div>
+        <div class="inner-user-wrapper">
+          <div class="user-content">
+            <div class="user">
+              <p class="username">{{user}}</p>
+              <p class="discriminator lighter">#{{discriminator}}</p>
+            </div>
+            <div class="progress-info">
+              <p class="progress-current">{{current}}K</p>
+              <p class="progress-total lighter">&nbsp;/ {{max}}K</p>
+            </div>
+          </div>
+
+          <div class="progress-bar lighter-back">
+            <div class="progress color-back"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
