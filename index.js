@@ -49,6 +49,9 @@ app.get(`/mee6`, async function (req, res) {
         avatar: req.query.avatar || "https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png",
         color: req.query.color || "2BBADE",
       },
+      puppeteerArgs: {
+        args: ["--no-sandbox"]
+      },
     });
     res.writeHead(200, { "Content-Type": "image/png" });
     res.end(image, "binary");
