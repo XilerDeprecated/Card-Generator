@@ -67,4 +67,4 @@ app.get(`/mee6`, async function (req, res) {
   }
 });
 
-app.listen(PORT, () => console.log(`Up and running on http://127.0.0.1:${port}`));
+app.listen(PORT, () => console.log(`Up and running on http://127.0.0.1:${PORT}`));
