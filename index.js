@@ -2,12 +2,16 @@ const express = require("express");
 const app = express();
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
+const { Cluster } = require("puppeteer-cluster");
 
 const PORT = process.env.PORT || 25579;
 
 app.get(`/mee6`, async function (req, res) {
   try {
-    const data = fs.readFileSync("./pages/7KHL0rQmgfNO3neM5MgWuJGYPXYtWZf21DzABROzD2MBBqHaD0HUPDSXa8rcqOZx.hbs", "utf8");
+    const data = fs.readFileSync(
+      "./pages/7KHL0rQmgfNO3neM5MgWuJGYPXYtWZf21DzABROzD2MBBqHaD0HUPDSXa8rcqOZx.hbs",
+      "utf8"
+    );
 
     const getStatus = () => {
       if (!req.query.status) return "747F8D";
@@ -37,6 +41,8 @@ app.get(`/mee6`, async function (req, res) {
 
     const image = await nodeHtmlToImage({
       html: data,
+      type: "png",
+      transparent: true,
       content: {
         user: req.query.user || "Username",
         discriminator: req.query.discriminator || "9999",
@@ -46,17 +52,23 @@ app.get(`/mee6`, async function (req, res) {
         level: req.query.level || "0",
         progress: (req.query.current / req.query.max) * 100 || "0",
         status: getStatus(),
-        avatar: req.query.avatar || "https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png",
+        avatar:
+          req.query.avatar ||
+          "https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png",
         color: req.query.color || "2BBADE",
       },
       puppeteerArgs: {
-        args: ["--no-sandbox"]
+        concurrency: Cluster.CONCURRENCY_CONTEXT,
+        maxConcurrency: 10,
+        puppeteerOptions: {
+          args: ["--no-sandbox", "--headless", "--disable-gpu"],
+        },
       },
     });
     res.writeHead(200, { "Content-Type": "image/png" });
     res.end(image, "binary");
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send(err.message);
   }
 });
 
