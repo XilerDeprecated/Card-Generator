@@ -6,7 +6,7 @@ const fs = require("fs");
 const PORT = process.env.PORT || 25579;
 
 app.get(`/mee6`, async function (req, res) {
-  try {
+//  try {
     const data = fs.readFileSync("./pages/7KHL0rQmgfNO3neM5MgWuJGYPXYtWZf21DzABROzD2MBBqHaD0HUPDSXa8rcqOZx.hbs", "utf8");
 
     const getStatus = () => {
@@ -37,6 +37,9 @@ app.get(`/mee6`, async function (req, res) {
 
     const image = await nodeHtmlToImage({
       html: data,
+      puppeteerArgs: {
+ 	args: ["--no-sandbox"]
+      },
       content: {
         user: req.query.user || "Username",
         discriminator: req.query.discriminator || "9999",
@@ -52,9 +55,9 @@ app.get(`/mee6`, async function (req, res) {
     });
     res.writeHead(200, { "Content-Type": "image/png" });
     res.end(image, "binary");
-  } catch (err) {
-    res.status(500).send(err);
-  }
+//  } catch (err) {
+//    res.status(500).send(err);
+//  }
 });
 
 app.listen(PORT, () => console.log("Ready freddy!"));
