@@ -57,7 +57,25 @@ app.get(`/mee6`, async function (req, res) {
         color: req.query.color || "2BBADE",
       },
       puppeteerArgs: {
-        args: ["--no-sandbox", "--headless", "--disable-gpu"],
+        headless: false,
+        devtools: false,
+        args: [
+          "--disable-canvas-aa",
+          "--disable-2d-canvas-clip-aa",
+          "--disable-gl-drawing-for-tests",
+          "--disable-dev-shm-usage",
+          "--no-zygote",
+          "--use-gl=desktop",
+          "--enable-webgl",
+          "--hide-scrollbars",
+          "--mute-audio",
+          "--no-first-run",
+          "--disable-infobars",
+          "--disable-breakpad",
+          "--user-data-dir=./chromeData",
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+        ],
       },
     });
     res.writeHead(200, { "Content-Type": "image/png" });
@@ -67,4 +85,6 @@ app.get(`/mee6`, async function (req, res) {
   }
 });
 
-app.listen(PORT, () => console.log(`Up and running on http://127.0.0.1:${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Up and running on http://127.0.0.1:${PORT}`)
+);
