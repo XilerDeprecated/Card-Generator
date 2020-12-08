@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const nodeHtmlToImage = require("node-html-to-image");
 const fs = require("fs");
-const { Cluster } = require("puppeteer-cluster");
 
 const PORT = process.env.PORT || 25579;
 
@@ -58,11 +57,7 @@ app.get(`/mee6`, async function (req, res) {
         color: req.query.color || "2BBADE",
       },
       puppeteerArgs: {
-        concurrency: Cluster.CONCURRENCY_CONTEXT,
-        maxConcurrency: 10,
-        puppeteerOptions: {
-          args: ["--no-sandbox", "--headless", "--disable-gpu"],
-        },
+        args: ["--no-sandbox", "--headless", "--disable-gpu"],
       },
     });
     res.writeHead(200, { "Content-Type": "image/png" });
@@ -72,4 +67,4 @@ app.get(`/mee6`, async function (req, res) {
   }
 });
 
-app.listen(PORT, () => console.log("Ready freddy!"));
+app.listen(PORT, () => console.log(`Up and running on http://127.0.0.1:${port}`));
