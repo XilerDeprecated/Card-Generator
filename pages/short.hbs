@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mee6 image</title>
+    <title>Shortcard image</title>
     <style>
       .body {
-        width: 810px;
-        height: 282px;
+        width: 450px;
+        height: 600px;
       }
 
       body {
@@ -20,6 +20,8 @@
         color: white;
         font-size: 25px;
         font-family: "Roboto", sans-serif;
+        width: 500px;
+        height: 600px;
       }
 
       .light-font {
@@ -31,14 +33,15 @@
       }
 
       .card {
-        border-radius: 6px;
+        border-radius: 15px;
         background-color: #23272a;
-        width: 854px;
+        width: 500px;
+        height: 600px;
         padding: 0 40px;
-        height: 282px;
-        display: grid;
-        grid-template-columns: 1fr 3fr;
+        display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
       }
 
       .avatar {
@@ -49,34 +52,35 @@
       .avatar img {
         width: 160px;
         height: 160px;
-        border: 4px solid black;
+        border: 4px solid #{{status}};
         border-radius: 50%;
-      }
-
-      .avatar .status {
-        position: absolute;
-        top: 67%;
-        right: 0;
-        width: 40px;
-        height: 40px;
-        border: 4px solid black;
-        border-radius: 50%;
-        background-color: #{{status}};
       }
 
       .user-wrapper {
-        display: grid;
-        grid-template-rows: 1fr 1fr;
+        position: relative;
         align-items: center;
+        width: 80%;
       }
 
       .inner-user-wrapper {
         height: 100%;
+        width: 100%;
       }
 
       .inner-user-server-stats-wrapper {
         display: flex;
         justify-content: flex-end;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .inner-user-server-stats-wrapper p {
+        margin: 0;
+      }
+
+      .progress-info p,
+      .inner-user-server-stats-wrapper {
+        margin: 25px 0 5px 0;
       }
 
       .user-content,
@@ -85,14 +89,26 @@
         display: flex;
       }
 
-      .user-content {
-        margin: 0 8px;
-        justify-content: space-between;
+      .progress-info {
+        margin-left: 17px;
+      }
+
+      .user {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
 
       .user-content p {
         padding: 0;
-        margin: 0 0 10px 10px;
+        margin: 0;
+        width: fit-content;
+      }
+
+      .user-content {
+        position: relative;
+        margin: 0;
+        justify-content: center;
       }
 
       .color {
@@ -104,7 +120,7 @@
       }
 
       .lighter {
-        color: #7F8384;
+        color: #7f8384;
       }
 
       .lighter-back {
@@ -112,22 +128,21 @@
       }
 
       .bigger {
-        font-size: 250%;
+        font-size: 150%;
       }
 
       .progress-bar {
         height: 37px;
-        border: 2px solid black;
       }
 
       .progress,
       .progress-bar {
         border-radius: 19px;
+        overflow: hidden;
       }
 
       .username {
         font-size: 175%;
-        line-height: 16px;
       }
 
       .level-wrapper {
@@ -139,6 +154,20 @@
         height: 100%;
         width: {{progress}}%;
       }
+
+      .user {
+        width: 100%;
+      }
+
+      .rank-wrapper,
+      .level-wrapper,
+      .username {
+        text-align: center;
+        width: 100% !important;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     </style>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
@@ -149,28 +178,33 @@
   <body>
     <div class="card">
       <div class="avatar">
-        <img src="{{avatar}}" alt="The user icon" />
+        <img
+          src="{{avatar}}"
+          alt="The user icon"
+        />
         <div class="status"></div>
       </div>
       <div class="user-wrapper">
-        <div class="inner-user-server-stats-wrapper">
-          <p class="rank-wrapper light-font">
-            RANK <span class="bigger thicc-font">#{{rank}}</span>
-          </p>
-          <p class="level-wrapper color light-font">
-            LEVEL <span class="bigger thicc-font">{{level}}</span>
-          </p>
-        </div>
         <div class="inner-user-wrapper">
           <div class="user-content">
             <div class="user">
-              <p class="username">{{user}}</p>
+              <p class="username">
+                {{user}}
+              </p>
               <p class="discriminator lighter">#{{discriminator}}</p>
             </div>
-            <div class="progress-info">
-              <p class="progress-current">{{current}}K</p>
-              <p class="progress-total lighter">&nbsp;/ {{max}}K</p>
-            </div>
+          </div>
+          <div class="inner-user-server-stats-wrapper">
+            <p class="rank-wrapper light-font">
+              RANK <span class="bigger thicc-font">#{{rank}}</span>
+            </p>
+            <p class="level-wrapper color light-font">
+              LEVEL <span class="bigger thicc-font">{{level}}</span>
+            </p>
+          </div>
+          <div class="progress-info">
+            <p class="progress-current">{{current}}K</p>
+            <p class="progress-total lighter">&nbsp;&nbsp;/ {{max}}K</p>
           </div>
 
           <div class="progress-bar lighter-back">

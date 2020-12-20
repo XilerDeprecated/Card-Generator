@@ -60,27 +60,30 @@ const getStatus = (status) => {
   }
 };
 
-app.get(`/mee6`, async function (req, res) {
-  try {
-    const data = fs.readFileSync(
-      "./pages/7KHL0rQmgfNO3neM5MgWuJGYPXYtWZf21DzABROzD2MBBqHaD0HUPDSXa8rcqOZx.hbs",
-      "utf8"
-    );
+const getImageFromData = async (data, query) =>
+  await getImage(data, {
+    user: query.user || "Username",
+    discriminator: query.discriminator || "9999",
+    current: query.current || "0",
+    max: query.max || "0",
+    rank: query.rank || "0",
+    level: query.level || "0",
+    progress: (query.current / query.max) * 100 || "0",
+    status: getStatus(query.status),
+    avatar:
+      query.avatar ||
+      "https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png",
+    color: query.color || "2BBADE",
+  });
 
-    const image = await getImage(data, {
-      user: req.query.user || "Username",
-      discriminator: req.query.discriminator || "9999",
-      current: req.query.current || "0",
-      max: req.query.max || "0",
-      rank: req.query.rank || "0",
-      level: req.query.level || "0",
-      progress: (req.query.current / req.query.max) * 100 || "0",
-      status: getStatus(req.query.status),
-      avatar:
-        req.query.avatar ||
-        "https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png",
-      color: req.query.color || "2BBADE",
-    });
+const getBinaryImage = async (path, req) => {
+  const data = fs.readFileSync(path, "utf8");
+  return await getImageFromData(data, req.query);
+};
+
+app.get(`/mee6`, async (req, res) => {
+  try {
+    const image = await getBinaryImage("./pages/mee6.hbs", req);
 
     res.writeHead(200, { "Content-Type": "image/png" });
     res.end(image, "binary");
@@ -91,25 +94,7 @@ app.get(`/mee6`, async function (req, res) {
 
 app.get(`/short`, async function (req, res) {
   try {
-    const data = fs.readFileSync(
-      "./pages/w1a61AfTchYIbVL9gSRk4IugkXLsWYJD05ogbOYobVXBklk4r36VWSCLhWUKc2nv.hbs",
-      "utf8"
-    );
-
-    const image = await getImage(data, {
-      user: req.query.user || "Username",
-      discriminator: req.query.discriminator || "9999",
-      current: req.query.current || "0",
-      max: req.query.max || "0",
-      rank: req.query.rank || "0",
-      level: req.query.level || "0",
-      progress: (req.query.current / req.query.max) * 100 || "0",
-      status: getStatus(req.query.status),
-      avatar:
-        req.query.avatar ||
-        "https://discord.com/assets/6debd47ed13483642cf09e832ed0bc1b.png",
-      color: req.query.color || "2BBADE",
-    });
+    const image = await getBinaryImage("./pages/short.hbs", req);
 
     res.writeHead(200, { "Content-Type": "image/png" });
     res.end(image, "binary");
