@@ -40,11 +40,11 @@ const getStatus = (status) => {
     case "o":
     case "on":
     case "online":
-      return "#42B480";
+      return "42B480";
 
     case "afk":
     case "idle":
-      return "#FAA61A";
+      return "FAA61A";
 
     case "dnd":
     case "do-not-disturb":
